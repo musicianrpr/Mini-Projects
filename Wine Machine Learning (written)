@@ -1,0 +1,33 @@
+import pandas as pd
+#reading a wine dataset
+df_wine = pd.read_csv('datasets_16721_22034_wine_dataset.csv')
+
+df_wine.head(10)
+
+#replacing the wine styles to numbers
+#now we can use this data to machine learning
+df_wine['style'] = df_wine['style'].replace('red', 0)
+df_wine['style'] = df_wine['style'].replace('white', 1)
+
+df_wine['style'].head()
+
+#dividing the test data in two parts:
+#information and answers
+y = df_wine['style']
+x = df_wine.drop('style', axis=1)
+
+from sklearn.model_selection import train_test_split
+#defining 30% of the wine dataset as a test content
+x_train, x_test, y_train, y_test = train_test_split(x, y , test_size=0.3)
+
+from sklearn.ensemble import ExtraTreesClassifier as etc
+model = etc()
+#training us machine
+model.fit(x_train, y_train)
+#showing it results
+result = model.score(x_test, y_test) * 100
+print(f'Accuracy: {result:.2f}%')
+
+x_test[100:110]
+
+y_test[100:110]
